@@ -8,9 +8,9 @@ RSpec.describe "Items API" do
     subscription_params = ({
                     title: "White Tea Subscription",
                     price: 15.99,
-                    status: "active",
-                    frequeny: 60
-                    customer_id: customer.id 
+                    status: 0,
+                    frequency: 60,
+                    customer_id: customer.id, 
                     tea_id: tea.id
                   })
     headers = {"CONTENT_TYPE" => "application/json"}

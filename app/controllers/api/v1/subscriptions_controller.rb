@@ -5,12 +5,13 @@ class Api::V1::SubscriptionsController < ApplicationController
     if new_subscription.save
       render json: SubscriptionSerializer.new(new_subscription), status: 201
     else 
-      render json: { errors: new_subscription.errors.full_messages.to_senetence }, status: 400
+      render json: { errors: new_subscription.errors.full_messages.to_sentence }, status: 400
+    end
   end
 
   private
 
   def subscription_params
-    params.permit(:title, :price, :status, :frequency, :customer_id, :tea_id)
+    params.require(:subscription).permit(:title, :price, :status, :frequency, :customer_id, :tea_id)
   end
 end
