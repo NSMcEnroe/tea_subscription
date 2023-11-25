@@ -63,23 +63,23 @@
 `POST /api/v1/subscriptions`
 
 In order to subscribe a customer to a new tea, the front end application will need to pass through the following parameters:
--title
--price
--status
--frequency
--customer_id
--tea_id
+- title
+- price
+- status
+- frequency
+- customer_id
+- tea_id
 
 `PATCH /api/v1/subscriptions/#{subscription.id}`
 
 In order for a customer to cancel their tea subscription, the front end application will need to pass through the following parameters:
--subscription.id
--updated status (cancelled)
+- subscription.id
+- updated status (cancelled)
 
 `GET /api/v1/subscriptions?customer_id={customer.id}`
 
 In order to view all active and cancelled subscriptions of a customer, the front end application will need to pass through the following paramters:
--customer_id
+- customer_id
 
   ## Contributors
 
