@@ -224,6 +224,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  factory_bot (~> 6.4)
   factory_bot_rails
   faker
   jsonapi-serializer

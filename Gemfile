@@ -55,3 +55,5 @@ group :development do
   gem 'shoulda-matchers', '~> 5.0'
 end
 
+
+gem "factory_bot", "~> 6.4"
