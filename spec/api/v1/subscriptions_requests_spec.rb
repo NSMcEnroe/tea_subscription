@@ -27,7 +27,21 @@ RSpec.describe "Items API" do
     expect(created_subscription.tea_id).to eq(subscription_params[:tea_id])
   end
 
-  xit "can cancel a subscription" do
+  it "can cancel a subscription" do
+    customer = create(:customer)
+    tea = create(:tea)
+
+    id = create(:subscription, customer_id: customer.id, tea_id: tea.id, status: 0).id
+
+    subscription_params = { status: 1 }
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    patch "/api/v1/subscriptions/#{id}", headers: headers, params: JSON.generate({subscription: subscription_params})
+    new_subscription = Subscription.find_by(id: id)
+
+    expect(response).to be_successful
+    expect(new_subscription.status).to_not eq("active")
+    expect(new_subscription.status).to eq("cancelled")
   end
 
   xit "can see all of a customer's subscriptions" do

@@ -9,6 +9,16 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def update
+    begin
+      subscription = Subscription.find(params[:id])
+      subscription.update(status: params[:status])
+      render json: SubscriptionSerializer.new(Subscription.update(params[:id], subscription_params))
+    rescue StandardError => e
+      render json: { error: e.message }, status: 422
+    end
+  end
+
   private
 
   def subscription_params
