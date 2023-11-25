@@ -44,6 +44,31 @@ RSpec.describe "Items API" do
     expect(new_subscription.status).to eq("cancelled")
   end
 
-  xit "can see all of a customer's subscriptions" do
+  it "can see all of a customer's subscriptions" do
+    customer = create(:customer)
+    customer_2 = create(:customer)
+    tea = create(:tea)
+    tea_2 = create(:tea)
+
+    subscription = create(:subscription, customer_id: customer.id, tea_id: tea.id, status: 0)
+    subscription = create(:subscription, customer_id: customer.id, tea_id: tea_2.id, status: 1)
+
+    get "/api/v1/subscriptions?customer_id=#{customer.id}"
+
+    expect(response).to be_successful
+    index = JSON.parse(response.body, symbolize_names: true)
+
+    expect(index).to have_key :data
+    expect(index[:data]).to be_an Array
+
+    active = index[:data][0]
+    cancelled = index[:data][1]
+
+    expect(active).to have_key(:id)
+    expect(active).to have_key(:type)
+    expect(active[:type]).to eq("subscription")
+    expect(active).to have_key(:attributes)
+    expect(active[:attributes][:status]).to eq("active")
+    expect(cancelled[:attributes][:status]).to eq("cancelled")
   end
 end
